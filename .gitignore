@@ -1,0 +1,4 @@
+node_modules/
+database/waste.db
+.env
+.DS_Store

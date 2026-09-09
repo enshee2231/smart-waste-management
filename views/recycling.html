@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Recycling Guide | Smart Waste ACT</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="navbar">
+  <div class="nav-inner">
+    <a class="brand" href="/">♻ Smart Waste ACT</a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/schedule">Collection Schedule</a>
+      <a href="/recycling">Recycling Guide</a>
+      <a href="/report">Report Issue</a>
+      <a href="/routes">Route Planning</a>
+      <a href="/admin">Admin</a>
+    </div>
+  </div>
+</nav>
+<main class="container">
+  <h1 class="section-title">Recycling Guide</h1>
+  <p class="section-subtitle">Search an item to see how it should be disposed of in this prototype.</p>
+
+  <form id="recycling-search-form" class="search-row">
+    <input id="recycling-search" type="search" placeholder="Try battery, plastic bottle, pizza box..." aria-label="Search recycling guide">
+    <button class="btn btn-primary" type="submit">Search</button>
+  </form>
+
+  <div id="recycling-results" class="item-list"></div>
+</main>
+<footer>
+  <div class="container">
+    <strong>Smart Waste Collection & Recycling Management Platform</strong>
+    <p class="small">University MVP supporting SDG 11: Sustainable Cities and Communities. Demo data only.</p>
+  </div>
+</footer>
+<script src="/js/app.js"></script>
+</body>
+</html>

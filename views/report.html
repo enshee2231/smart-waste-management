@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Report an Issue | Smart Waste ACT</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="navbar">
+  <div class="nav-inner">
+    <a class="brand" href="/">♻ Smart Waste ACT</a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/schedule">Collection Schedule</a>
+      <a href="/recycling">Recycling Guide</a>
+      <a href="/report">Report Issue</a>
+      <a href="/routes">Route Planning</a>
+      <a href="/admin">Admin</a>
+    </div>
+  </div>
+</nav>
+<main class="container">
+  <h1 class="section-title">Report a Waste Issue</h1>
+  <p class="section-subtitle">Use this form to submit a waste-related service issue. A reference number will be generated automatically.</p>
+
+  <div class="card form-card">
+    <div id="report-notice" class="notice" role="status"></div>
+
+    <form id="report-form">
+      <label for="name">Full name</label>
+      <input id="name" name="name" required>
+
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" required>
+
+      <label for="suburb">Suburb</label>
+      <select id="suburb" name="suburb" required>
+        <option value="">Select suburb</option>
+        <option>Canberra City</option>
+        <option>Belconnen</option>
+        <option>Gungahlin</option>
+        <option>Woden</option>
+        <option>Tuggeranong</option>
+      </select>
+
+      <label for="issue_type">Issue type</label>
+      <select id="issue_type" name="issue_type" required>
+        <option value="">Select issue</option>
+        <option>Missed Collection</option>
+        <option>Overflowing Bin</option>
+        <option>Damaged Bin</option>
+        <option>Illegal Dumping</option>
+        <option>Other</option>
+      </select>
+
+      <label for="report-date">Date</label>
+      <input id="report-date" name="report_date" type="date" required>
+
+      <label for="description">Description</label>
+      <textarea id="description" name="description" required placeholder="Describe the problem..."></textarea>
+
+      <button class="btn btn-primary" type="submit">Submit Report</button>
+    </form>
+  </div>
+</main>
+<footer>
+  <div class="container">
+    <strong>Smart Waste Collection & Recycling Management Platform</strong>
+    <p class="small">University MVP supporting SDG 11: Sustainable Cities and Communities. Demo data only.</p>
+  </div>
+</footer>
+<script src="/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Dashboard | Smart Waste ACT</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="navbar">
+  <div class="nav-inner">
+    <a class="brand" href="/">♻ Smart Waste ACT</a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/schedule">Collection Schedule</a>
+      <a href="/recycling">Recycling Guide</a>
+      <a href="/report">Report Issue</a>
+      <a href="/routes">Route Planning</a>
+      <a href="/admin">Admin</a>
+    </div>
+  </div>
+</nav>
+<main class="container">
+  <h1 class="section-title">Admin Dashboard</h1>
+  <p class="section-subtitle">Council staff prototype dashboard for reports and collection schedules.</p>
+
+  <div id="admin-notice" class="notice" role="status"></div>
+
+  <section class="stats">
+    <div class="stat"><span>Total Reports</span><strong id="stat-total">0</strong></div>
+    <div class="stat"><span>Open</span><strong id="stat-open">0</strong></div>
+    <div class="stat"><span>In Progress</span><strong id="stat-progress">0</strong></div>
+    <div class="stat"><span>Resolved</span><strong id="stat-resolved">0</strong></div>
+    <div class="stat"><span>Upcoming Collections</span><strong id="stat-upcoming">0</strong></div>
+  </section>
+
+  <section>
+    <h2>Resident Reports</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Reference</th>
+            <th>Resident</th>
+            <th>Suburb</th>
+            <th>Issue</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Update</th>
+          </tr>
+        </thead>
+        <tbody id="report-table-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section style="margin-top:40px;">
+    <h2>Manage Collection Schedules</h2>
+    <div class="card form-card">
+      <form id="schedule-admin-form">
+        <input id="schedule-id" type="hidden">
+
+        <label for="admin-suburb">Suburb</label>
+        <input id="admin-suburb" required placeholder="e.g. Belconnen">
+
+        <label for="admin-bin">Bin Type</label>
+        <select id="admin-bin" required>
+          <option value="">Choose bin type</option>
+          <option>General Waste</option>
+          <option>Recycling</option>
+          <option>Green Waste</option>
+        </select>
+
+        <label for="admin-date">Collection Date</label>
+        <input id="admin-date" type="date" required>
+
+        <label for="admin-day">Collection Day</label>
+        <input id="admin-day" required placeholder="e.g. Monday">
+
+        <button id="schedule-submit" class="btn btn-primary" type="submit">Add Schedule</button>
+      </form>
+    </div>
+
+    <br>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Suburb</th>
+            <th>Bin Type</th>
+            <th>Date</th>
+            <th>Day</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="admin-schedule-body"></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="container">
+    <strong>Smart Waste Collection & Recycling Management Platform</strong>
+    <p class="small">University MVP supporting SDG 11: Sustainable Cities and Communities. Demo data only.</p>
+  </div>
+</footer>
+<script src="/js/app.js"></script>
+</body>
+</html>

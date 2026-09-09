@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Route Planning | Smart Waste ACT</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<nav class="navbar">
+  <div class="nav-inner">
+    <a class="brand" href="/">♻ Smart Waste ACT</a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/schedule">Collection Schedule</a>
+      <a href="/recycling">Recycling Guide</a>
+      <a href="/report">Report Issue</a>
+      <a href="/routes">Route Planning</a>
+      <a href="/admin">Admin</a>
+    </div>
+  </div>
+</nav>
+<main class="container">
+  <h1 class="section-title">Collection Route Planning</h1>
+  <p class="section-subtitle">Prototype decision-support view for council waste collection planning.</p>
+
+  <div class="grid">
+    <article class="card">
+      <h3>Route R-101</h3>
+      <p><strong>Stops:</strong> 4</p>
+      <p><strong>Estimated distance:</strong> 18 km</p>
+      <p><strong>Estimated time:</strong> 1 hr 20 min</p>
+      <p><strong>Priority:</strong> High</p>
+      <p><strong>Status:</strong> Ready</p>
+      <div class="route-steps">
+        <span class="route-stop">Depot</span>
+        <span class="route-stop">Belconnen</span>
+        <span class="route-stop">Bruce</span>
+        <span class="route-stop">Turner</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <h3>Route R-202</h3>
+      <p><strong>Stops:</strong> 5</p>
+      <p><strong>Estimated distance:</strong> 24 km</p>
+      <p><strong>Estimated time:</strong> 1 hr 55 min</p>
+      <p><strong>Priority:</strong> Medium</p>
+      <p><strong>Status:</strong> Planned</p>
+      <div class="route-steps">
+        <span class="route-stop">Depot</span>
+        <span class="route-stop">Woden</span>
+        <span class="route-stop">Phillip</span>
+        <span class="route-stop">Curtin</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <h3>Prototype limitation</h3>
+      <p>This demonstration does not use live GPS or AI route optimisation. A production version could integrate traffic data, vehicle capacity, GPS tracking and optimisation algorithms.</p>
+    </article>
+  </div>
+</main>
+<footer>
+  <div class="container">
+    <strong>Smart Waste Collection & Recycling Management Platform</strong>
+    <p class="small">University MVP supporting SDG 11: Sustainable Cities and Communities. Demo data only.</p>
+  </div>
+</footer>
+<script src="/js/app.js"></script>
+</body>
+</html>
