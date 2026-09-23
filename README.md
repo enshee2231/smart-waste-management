@@ -38,7 +38,7 @@ npm start
 5. Open your browser and visit:
 
 ```text
-http://localhost:3000
+http://localhost:3012
 ```
 
 The SQLite database is created automatically when the app starts.
