@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Waste Library | Smart Waste ACT</title>
+
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<nav class="navbar">
+  <div class="nav-inner">
+
+    <a class="brand" href="/">♻ Smart Waste ACT</a>
+
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/schedule">Collection Schedule</a>
+      <a href="/recycling">Recycling Guide</a>
+      <a href="/library">Library</a>
+      <a href="/report">Report Issue</a>
+      <a href="/track">Track My Issue</a>
+      <a href="/routes">Route Planning</a>
+      <a href="/admin">Admin</a>
+    </div>
+
+  </div>
+</nav>
+
+
+<main class="container">
+
+  <h1 class="section-title">Waste & Recycling Library</h1>
+
+  <p class="section-subtitle">
+    Search common household waste items to find out which bin
+    or recycling service should be used.
+  </p>
+
+
+  <div class="card form-card">
+
+    <label for="library-search">
+      Search for an item
+    </label>
+
+    <input
+      id="library-search"
+      type="text"
+      placeholder="e.g. battery, cardboard, bottle, laptop"
+    >
+
+    <button
+      id="library-search-button"
+      class="btn btn-primary"
+      type="button"
+    >
+      Search Library
+    </button>
+
+    <button
+      id="library-show-all"
+      class="btn"
+      type="button"
+    >
+      Show All
+    </button>
+
+  </div>
+
+
+  <div
+    id="library-notice"
+    class="notice"
+    role="status"
+  ></div>
+
+
+  <section style="margin-top:30px;">
+
+    <h2>Waste Items</h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Category</th>
+            <th>Where It Goes</th>
+            <th>Instructions</th>
+          </tr>
+        </thead>
+
+        <tbody id="library-table-body">
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<footer>
+  <div class="container">
+
+    <strong>
+      Smart Waste Collection & Recycling Management Platform
+    </strong>
+
+    <p class="small">
+      University MVP supporting SDG 11:
+      Sustainable Cities and Communities.
+      Demo data only.
+    </p>
+
+  </div>
+</footer>
+
+
+<script>
+
+const libraryBody =
+  document.getElementById("library-table-body");
+
+const libraryNotice =
+  document.getElementById("library-notice");
+
+const librarySearch =
+  document.getElementById("library-search");
+
+
+async function loadLibrary(search = "") {
+
+  libraryNotice.textContent = "Loading...";
+
+  try {
+
+    let url = "/api/library";
+
+    if (search) {
+      url += "?q=" + encodeURIComponent(search);
+    }
+
+
+    const response = await fetch(url);
+
+    const items = await response.json();
+
+
+    if (!response.ok) {
+
+      libraryNotice.textContent =
+        items.error || "Unable to load library.";
+
+      return;
+    }
+
+
+    libraryBody.innerHTML = "";
+
+
+    if (items.length === 0) {
+
+      libraryNotice.textContent =
+        "No matching waste items were found.";
+
+      return;
+    }
+
+
+    libraryNotice.textContent =
+      `${items.length} item(s) found.`;
+
+
+    items.forEach(item => {
+
+      const row =
+        document.createElement("tr");
+
+
+      const nameCell =
+        document.createElement("td");
+
+      nameCell.textContent =
+        item.item_name;
+
+
+      const categoryCell =
+        document.createElement("td");
+
+      categoryCell.textContent =
+        item.category;
+
+
+      const binCell =
+        document.createElement("td");
+
+      binCell.textContent =
+        item.bin_type;
+
+
+      const instructionCell =
+        document.createElement("td");
+
+      instructionCell.textContent =
+        item.instruction;
+
+
+      row.appendChild(nameCell);
+      row.appendChild(categoryCell);
+      row.appendChild(binCell);
+      row.appendChild(instructionCell);
+
+
+      libraryBody.appendChild(row);
+
+    });
+
+  }
+
+  catch (error) {
+
+    console.error(error);
+
+    libraryNotice.textContent =
+      "Unable to connect to the server.";
+
+  }
+}
+
+
+document
+  .getElementById("library-search-button")
+  .addEventListener("click", () => {
+
+    loadLibrary(
+      librarySearch.value.trim()
+    );
+
+  });
+
+
+document
+  .getElementById("library-show-all")
+  .addEventListener("click", () => {
+
+    librarySearch.value = "";
+
+    loadLibrary();
+
+  });
+
+
+librarySearch.addEventListener(
+  "keydown",
+  event => {
+
+    if (event.key === "Enter") {
+
+      event.preventDefault();
+
+      loadLibrary(
+        librarySearch.value.trim()
+      );
+
+    }
+
+  }
+);
+
+
+loadLibrary();
+
+</script>
+
+</body>
+</html>

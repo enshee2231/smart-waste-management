@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>
+    Track My Issue | Smart Waste ACT
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+  >
+
+</head>
+
+
+<body>
+
+
+<nav class="navbar">
+
+  <div class="nav-inner">
+
+    <a class="brand" href="/">
+      ♻ Smart Waste ACT
+    </a>
+
+
+    <div class="nav-links">
+
+      <a href="/">Home</a>
+
+      <a href="/schedule">
+        Collection Schedule
+      </a>
+
+      <a href="/recycling">
+        Recycling Guide
+      </a>
+
+      <a href="/library">
+        Library
+      </a>
+
+      <a href="/report">
+        Report Issue
+      </a>
+
+      <a href="/track">
+        Track My Issue
+      </a>
+
+      <a href="/routes">
+        Route Planning
+      </a>
+
+      <a href="/admin">
+        Admin
+      </a>
+
+    </div>
+
+  </div>
+
+</nav>
+
+
+<main class="container">
+
+
+  <h1 class="section-title">
+    Track My Waste Issue
+  </h1>
+
+
+  <p class="section-subtitle">
+
+    Enter your report reference number and the
+    email address you used when submitting the issue.
+
+  </p>
+
+
+  <div class="card form-card">
+
+
+    <label for="track-reference">
+      Report Reference Number
+    </label>
+
+
+    <input
+      id="track-reference"
+      type="text"
+      placeholder="Example: WASTE-0001"
+    >
+
+
+    <label for="track-email">
+      Email Address
+    </label>
+
+
+    <input
+      id="track-email"
+      type="email"
+      placeholder="Enter the email used in your report"
+    >
+
+
+    <button
+      id="track-button"
+      class="btn btn-primary"
+      type="button"
+    >
+      Track My Issue
+    </button>
+
+
+    <div
+      id="track-notice"
+      class="notice"
+      role="status"
+    ></div>
+
+
+  </div>
+
+
+  <section
+    id="track-result"
+    class="card"
+    style="display:none; margin-top:30px;"
+  >
+
+
+    <h2>
+      Report Progress
+    </h2>
+
+
+    <p>
+      <strong>Reference:</strong>
+      <span id="result-reference"></span>
+    </p>
+
+
+    <p>
+      <strong>Issue:</strong>
+      <span id="result-issue"></span>
+    </p>
+
+
+    <p>
+      <strong>Suburb:</strong>
+      <span id="result-suburb"></span>
+    </p>
+
+
+    <p>
+      <strong>Date Reported:</strong>
+      <span id="result-date"></span>
+    </p>
+
+
+    <p>
+      <strong>Description:</strong>
+      <span id="result-description"></span>
+    </p>
+
+
+    <hr>
+
+
+    <h3>
+      Current Status
+    </h3>
+
+
+    <p
+      id="result-status"
+      style="font-size:1.3rem; font-weight:bold;"
+    ></p>
+
+
+    <div id="status-explanation"></div>
+
+
+  </section>
+
+
+</main>
+
+
+<footer>
+
+  <div class="container">
+
+    <strong>
+      Smart Waste Collection & Recycling Management Platform
+    </strong>
+
+    <p class="small">
+      University MVP supporting SDG 11:
+      Sustainable Cities and Communities.
+      Demo data only.
+    </p>
+
+  </div>
+
+</footer>
+
+
+<script>
+
+
+const trackButton =
+  document.getElementById("track-button");
+
+
+const notice =
+  document.getElementById("track-notice");
+
+
+const result =
+  document.getElementById("track-result");
+
+
+
+trackButton.addEventListener(
+  "click",
+  trackReport
+);
+
+
+
+async function trackReport() {
+
+
+  const reference =
+    document
+      .getElementById("track-reference")
+      .value
+      .trim();
+
+
+  const email =
+    document
+      .getElementById("track-email")
+      .value
+      .trim();
+
+
+  notice.textContent = "";
+  notice.className = "notice";
+
+  result.style.display = "none";
+
+
+  if (!reference || !email) {
+    notice.className = "notice error";
+
+    notice.textContent =
+      "Please enter your reference number and email address.";
+
+    return;
+
+  }
+
+
+  try {
+
+
+    const response =
+      await fetch("/api/track", {
+
+        method: "POST",
+
+        headers: {
+          "Content-Type":
+            "application/json"
+        },
+
+        body: JSON.stringify({
+          reference,
+          email
+        })
+
+      });
+
+
+    const data =
+      await response.json();
+
+
+    if (!response.ok) {
+      notice.className = "notice error";
+
+      notice.textContent =
+        data.error ||
+        "Unable to find your report.";
+
+      return;
+
+    }
+
+
+    document.getElementById(
+      "result-reference"
+    ).textContent =
+      data.reference;
+
+
+    document.getElementById(
+      "result-issue"
+    ).textContent =
+      data.issue_type;
+
+
+    document.getElementById(
+      "result-suburb"
+    ).textContent =
+      data.suburb;
+
+
+    document.getElementById(
+      "result-date"
+    ).textContent =
+      data.report_date;
+
+
+    document.getElementById(
+      "result-description"
+    ).textContent =
+      data.description;
+
+
+    document.getElementById(
+      "result-status"
+    ).textContent =
+      data.status;
+
+
+
+    const explanation =
+      document.getElementById(
+        "status-explanation"
+      );
+
+
+    if (data.status === "Open") {
+
+      explanation.textContent =
+        "Your report has been received and is waiting for council staff review.";
+
+    }
+
+
+    else if (
+      data.status === "In Progress"
+    ) {
+
+      explanation.textContent =
+        "Your report is currently being reviewed or actioned by council staff.";
+
+    }
+
+
+    else if (
+      data.status === "Resolved"
+    ) {
+
+      explanation.textContent =
+        "This waste issue has been marked as resolved.";
+
+    }
+
+
+    else {
+
+      explanation.textContent =
+        "Please contact council staff if you require more information.";
+
+    }
+
+
+    notice.className = "notice success";
+    notice.textContent =
+      "Report found successfully.";
+
+
+    result.style.display =
+      "block";
+
+
+  }
+
+  catch (error) {
+    notice.className = "notice error";
+
+
+    console.error(error);
+
+
+    notice.textContent =
+      "Unable to connect to the server.";
+
+
+  }
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
